@@ -1,0 +1,128 @@
+version: "3"
+services:
+  gateway:
+    container_name: kwetter-gateway
+    image: mrrrluiigii/kwetter-gateway
+    environment:
+      PORT_GATEWAY: ${PORT_GATEWAY}
+      FRONTEND_HOST: ${FRONTEND_HOST}
+    ports:
+      - 3000:3000
+  auth-service:
+    container_name: kwetter-auth-service
+    image: mrrrluiigii/kwetter-auth-service
+    environment:
+      PORT_AUTH: ${PORT_AUTH}
+      JWT_SECRET: ${JWT_SECRET}
+      REDIS_HOST: ${REDIS_HOST}
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+      TYPEORM_CONNECTION: ${TYPEORM_CONNECTION}
+      TYPEORM_HOST: ${TYPEORM_HOST}
+      TYPEORM_USERNAME: ${TYPEORM_USERNAME}
+      TYPEORM_PASSWORD: ${TYPEORM_PASSWORD}
+      TYPEORM_PORT: ${TYPEORM_PORT}
+      TYPEORM_SYNCHRONIZE: ${TYPEORM_SYNCHRONIZE}
+      TYPEORM_LOGGING: ${TYPEORM_LOGGING}
+      TYPEORM_DATABASE_AUTH: ${TYPEORM_DATABASE_AUTH}
+    ports:
+      - 3001:3001
+  mail-service:
+    container_name: kwetter-mail-service
+    image: mrrrluiigii/kwetter-mail-service
+    environment:
+      PORT_MAIL: ${PORT_MAIL}
+      SMTP_CONNECTION: ${SMTP_CONNECTION}
+      REDIS_HOST: ${REDIS_HOST}
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+    ports:
+      - 3002:3002
+  profile-service:
+    container_name: kwetter-profile-service
+    image: mrrrluiigii/kwetter-profile-service
+    environment:
+      PORT_PROFILE: ${PORT_PROFILE}
+      AUTH_SERVICE_HOST: ${AUTH_SERVICE_HOST}
+      REDIS_HOST: ${REDIS_HOST}
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+      TYPEORM_CONNECTION: ${TYPEORM_CONNECTION}
+      TYPEORM_HOST: ${TYPEORM_HOST}
+      TYPEORM_USERNAME: ${TYPEORM_USERNAME}
+      TYPEORM_PASSWORD: ${TYPEORM_PASSWORD}
+      TYPEORM_PORT: ${TYPEORM_PORT}
+      TYPEORM_SYNCHRONIZE: ${TYPEORM_SYNCHRONIZE}
+      TYPEORM_LOGGING: ${TYPEORM_LOGGING}
+      TYPEORM_DATABASE_PROFILE: ${TYPEORM_DATABASE_PROFILE}
+    ports:
+      - 3003:3003
+  trend-service:
+    container_name: kwetter-trend-service
+    image: mrrrluiigii/kwetter-trend-service
+    environment:
+      PORT_TREND: ${PORT_TREND}
+      AUTH_SERVICE_HOST: ${AUTH_SERVICE_HOST}
+      REDIS_HOST: ${REDIS_HOST}
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+      TYPEORM_CONNECTION: ${TYPEORM_CONNECTION}
+      TYPEORM_HOST: ${TYPEORM_HOST}
+      TYPEORM_USERNAME: ${TYPEORM_USERNAME}
+      TYPEORM_PASSWORD: ${TYPEORM_PASSWORD}
+      TYPEORM_PORT: ${TYPEORM_PORT}
+      TYPEORM_SYNCHRONIZE: ${TYPEORM_SYNCHRONIZE}
+      TYPEORM_LOGGING: ${TYPEORM_LOGGING}
+      TYPEORM_DATABASE_TREND: ${TYPEORM_DATABASE_TREND}
+    ports:
+      - 3004:3004
+  kweet-service:
+    container_name: kwetter-kweet-service
+    image: mrrrluiigii/kwetter-kweet-service
+    environment:
+      PORT_KWEET: ${PORT_KWEET}
+      AUTH_SERVICE_HOST: ${AUTH_SERVICE_HOST}
+      REDIS_HOST: ${REDIS_HOST}
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+      TYPEORM_CONNECTION: ${TYPEORM_CONNECTION}
+      TYPEORM_HOST: ${TYPEORM_HOST}
+      TYPEORM_USERNAME: ${TYPEORM_USERNAME}
+      TYPEORM_PASSWORD: ${TYPEORM_PASSWORD}
+      TYPEORM_PORT: ${TYPEORM_PORT}
+      TYPEORM_SYNCHRONIZE: ${TYPEORM_SYNCHRONIZE}
+      TYPEORM_LOGGING: ${TYPEORM_LOGGING}
+      TYPEORM_DATABASE_KWEET: ${TYPEORM_DATABASE_KWEET}
+    ports:
+      - 3005:3005
+  follow-service:
+    container_name: kwetter-follow-service
+    image: mrrrluiigii/kwetter-follow-service
+    environment:
+      PORT_FOLLOW: ${PORT_FOLLOW}
+      AUTH_SERVICE_HOST: ${AUTH_SERVICE_HOST}
+      REDIS_HOST: ${REDIS_HOST}
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+      TYPEORM_CONNECTION: ${TYPEORM_CONNECTION}
+      TYPEORM_HOST: ${TYPEORM_HOST}
+      TYPEORM_USERNAME: ${TYPEORM_USERNAME}
+      TYPEORM_PASSWORD: ${TYPEORM_PASSWORD}
+      TYPEORM_PORT: ${TYPEORM_PORT}
+      TYPEORM_SYNCHRONIZE: ${TYPEORM_SYNCHRONIZE}
+      TYPEORM_LOGGING: ${TYPEORM_LOGGING}
+      TYPEORM_DATABASE_FOLLOW: ${TYPEORM_DATABASE_FOLLOW}
+    ports:
+      - 3006:3006
+  like-service:
+    container_name: kwetter-like-service
+    image: mrrrluiigii/kwetter-like-service
+    environment:
+      PORT_LIKE: ${PORT_LIKE}
+      AUTH_SERVICE_HOST: ${AUTH_SERVICE_HOST}
+      REDIS_HOST: ${REDIS_HOST}
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+      TYPEORM_CONNECTION: ${TYPEORM_CONNECTION}
+      TYPEORM_HOST: ${TYPEORM_HOST}
+      TYPEORM_USERNAME: ${TYPEORM_USERNAME}
+      TYPEORM_PASSWORD: ${TYPEORM_PASSWORD}
+      TYPEORM_PORT: ${TYPEORM_PORT}
+      TYPEORM_SYNCHRONIZE: ${TYPEORM_SYNCHRONIZE}
+      TYPEORM_LOGGING: ${TYPEORM_LOGGING}
+      TYPEORM_DATABASE_LIKE: ${TYPEORM_DATABASE_LIKE}
+    ports:
+      - 3007:3007
