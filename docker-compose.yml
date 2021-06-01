@@ -1,11 +1,26 @@
 version: "3"
 services:
+  redis:
+    container_name: redis
+    image: redis:alpine
+    command: redis-server /usr/local/etc/redis/redis.conf --requirepass redispassword
+    ports:
+      - "6379:6379"
+    volumes:
+      - $PWD/redis.conf:/usr/local/etc/redis/redis.conf
+    restart: unless-stopped
   gateway:
     container_name: kwetter-gateway
     image: mrrrluiigii/kwetter-gateway
     environment:
       PORT_GATEWAY: ${PORT_GATEWAY}
       FRONTEND_HOST: ${FRONTEND_HOST}
+      AUTH_SERVICE_HOST: ${AUTH_SERVICE_HOST}
+      PROFILE_SERVICE_HOST: ${PROFILE_SERVICE_HOST}
+      TREND_SERVICE_HOST: ${TREND_SERVICE_HOST}
+      KWEET_SERVICE_HOST: ${KWEET_SERVICE_HOST}
+      FOLLOW_SERVICE_HOST: ${FOLLOW_SERVICE_HOST}
+      LIKE_SERVICE_HOST: ${LIKE_SERVICE_HOST}
     ports:
       - 3000:3000
   auth-service:
@@ -26,6 +41,8 @@ services:
       TYPEORM_DATABASE_AUTH: ${TYPEORM_DATABASE_AUTH}
     ports:
       - 3001:3001
+    depends_on:
+      - redis
   mail-service:
     container_name: kwetter-mail-service
     image: mrrrluiigii/kwetter-mail-service
@@ -36,6 +53,8 @@ services:
       REDIS_PASSWORD: ${REDIS_PASSWORD}
     ports:
       - 3002:3002
+    depends_on:
+      - redis
   profile-service:
     container_name: kwetter-profile-service
     image: mrrrluiigii/kwetter-profile-service
@@ -54,6 +73,8 @@ services:
       TYPEORM_DATABASE_PROFILE: ${TYPEORM_DATABASE_PROFILE}
     ports:
       - 3003:3003
+    depends_on:
+      - redis
   trend-service:
     container_name: kwetter-trend-service
     image: mrrrluiigii/kwetter-trend-service
@@ -72,6 +93,8 @@ services:
       TYPEORM_DATABASE_TREND: ${TYPEORM_DATABASE_TREND}
     ports:
       - 3004:3004
+    depends_on:
+      - redis
   kweet-service:
     container_name: kwetter-kweet-service
     image: mrrrluiigii/kwetter-kweet-service
@@ -90,6 +113,8 @@ services:
       TYPEORM_DATABASE_KWEET: ${TYPEORM_DATABASE_KWEET}
     ports:
       - 3005:3005
+    depends_on:
+      - redis
   follow-service:
     container_name: kwetter-follow-service
     image: mrrrluiigii/kwetter-follow-service
@@ -108,6 +133,8 @@ services:
       TYPEORM_DATABASE_FOLLOW: ${TYPEORM_DATABASE_FOLLOW}
     ports:
       - 3006:3006
+    depends_on:
+      - redis
   like-service:
     container_name: kwetter-like-service
     image: mrrrluiigii/kwetter-like-service
@@ -126,3 +153,5 @@ services:
       TYPEORM_DATABASE_LIKE: ${TYPEORM_DATABASE_LIKE}
     ports:
       - 3007:3007
+    depends_on:
+      - redis
